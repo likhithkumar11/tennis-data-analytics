@@ -3,7 +3,9 @@ import pandas as pd
 import sqlite3
 
 # Connect to SQLite database file
-conn = sqlite3.connect("tennis_db.db")
+import os
+db_path = os.path.join(os.path.dirname(__file__), "tennis_db.db")
+conn = sqlite3.connect(db_path)
 
 st.title("🎾 Tennis Data Analytics Dashboard")
 
