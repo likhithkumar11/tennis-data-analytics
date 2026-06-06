@@ -46,6 +46,7 @@ elif menu == "Competitions":
 
 
 # Venues
+# Venues
 elif menu == "Venues":
 
     query = """
@@ -57,12 +58,12 @@ elif menu == "Venues":
     """
 
     try:
-    df = pd.read_sql(query, conn)
-except Exception as e:
-    st.error(f"Error: {e}")
+        df = pd.read_sql(query, conn)
+        st.dataframe(df)
+        st.bar_chart(df.set_index("complex_name"))
 
-    st.dataframe(df)
-    st.bar_chart(df.set_index("complex_name"))
+    except Exception as e:
+        st.error(f"Error: {e}")
 
 
 # Rankings
