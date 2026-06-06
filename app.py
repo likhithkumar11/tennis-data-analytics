@@ -56,7 +56,10 @@ elif menu == "Venues":
     GROUP BY c.complex_name
     """
 
+    try:
     df = pd.read_sql(query, conn)
+except Exception as e:
+    st.error(f"Error: {e}")
 
     st.dataframe(df)
     st.bar_chart(df.set_index("complex_name"))
