@@ -17,16 +17,25 @@ menu = st.sidebar.selectbox(
 # Dashboard
 if menu == "Dashboard":
 
-    competitors = pd.read_sql("SELECT COUNT(*) as total FROM competitors", conn)
-    competitions = pd.read_sql("SELECT COUNT(*) as total FROM competitions", conn)
-    venues = pd.read_sql("SELECT COUNT(*) as total FROM venues", conn)
+    try:
+        competitors = pd.read_sql(
+            "SELECT COUNT(*) as total FROM Competitors", conn
+        )
+        competitions = pd.read_sql(
+            "SELECT COUNT(*) as total FROM Competitions", conn
+        )
+        venues = pd.read_sql(
+            "SELECT COUNT(*) as total FROM Venues", conn
+        )
 
-    col1, col2, col3 = st.columns(3)
+        col1, col2, col3 = st.columns(3)
 
-    col1.metric("Total Competitors", competitors.iloc[0]["total"])
-    col2.metric("Total Competitions", competitions.iloc[0]["total"])
-    col3.metric("Total Venues", venues.iloc[0]["total"])
+        col1.metric("Total Competitors", competitors.iloc[0]["total"])
+        col2.metric("Total Competitions", competitions.iloc[0]["total"])
+        col3.metric("Total Venues", venues.iloc[0]["total"])
 
+    except Exception as e:
+        st.error(f"Database Error: {e}")
 
 # Competitions
 elif menu == "Competitions":
@@ -45,7 +54,6 @@ elif menu == "Competitions":
     st.bar_chart(df.set_index("category_name"))
 
 
-# Venues
 # Venues
 elif menu == "Venues":
 
